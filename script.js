@@ -21,6 +21,19 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
   
+    function toggleTaskStatus(taskItem) {
+      var checkbox = taskItem.querySelector(".checkbox");
+      var taskText = taskItem.querySelector(".task-text");
+  
+      checkbox.addEventListener("change", function() {
+        if (checkbox.checked) {
+          taskText.classList.add("completed");
+        } else {
+          taskText.classList.remove("completed");
+        }
+      });
+    }
+  
     addButton.addEventListener("click", function() {
       addTask();
     });
@@ -38,6 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
         taskList.removeChild(taskItem);
         totalTasks--;
         countElement.textContent = totalTasks;
+      }
+    });
+  
+    taskList.addEventListener("change", function(event) {
+      if (event.target.classList.contains("checkbox")) {
+        var taskItem = event.target.parentNode;
+        toggleTaskStatus(taskItem);
       }
     });
   });
